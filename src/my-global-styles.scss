@@ -1,0 +1,242 @@
+// ----------- ORITECACIONES 
+.global-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.global-center-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.global-center-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.global-center-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+}
+
+.global-top-between {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.global-top-start {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.global-top-end {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+.global-button-between {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.global-button-start {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.global-button-end {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.global-end-between {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.global-end-center {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.global-between-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.global-between-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.global-between-end {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+}
+
+
+
+// Design scroll y
+.global-scroll-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.global-scroll-y::-webkit-scrollbar {
+    width: 4px;
+}
+
+.global-scroll-y::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+    .static-reserve {
+        position: fixed !important;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transition: padding 1s;
+        z-index: 10;
+    }
+}
+
+.animation-rigth {
+    opacity: 0;
+    /* Establece la opacidad inicial en 0 */
+    animation: entrada-derecha 0.5s forwards;
+    /* Aplica la animación 'entrada-derecha' durante 1 segundo y mantiene el estado final */
+}
+
+@keyframes entrada-derecha {
+    from {
+        opacity: 0;
+        /* Estado inicial de la animación */
+        transform: translateX(100%);
+        /* Desplazamiento inicial hacia la derecha */
+    }
+
+    to {
+        opacity: 1;
+        /* Estado final de la animación */
+        transform: translateX(0);
+        /* Desplazamiento final (sin desplazamiento) */
+    }
+}
+
+
+
+// -------------------------- FILTER TABLES
+
+.label-filter {
+    display: block;
+    font-size: 0.75rem; // Equivalente a text-xs
+    font-weight: 500; // Equivalente a font-medium
+    color: #1e3a8a; // Equivalente a text-blue-900
+}
+
+.input-filter {
+    background-color: #ffffff; // bg-white
+    border: 1px solid #d1d5db; // border-gray-300
+    width: 100%; // w-full
+    height: 2.25rem; // h-9
+    outline: none; // outline-none
+    color: #1e3a8a; // text-blue-900
+    font-size: 0.875rem; // text-sm
+    border-radius: 0.25rem; // rounded
+    display: block; // block
+
+    &:focus {
+        border-color: #1d4ed8; // focus:border-blue-700
+        box-shadow: 0 0 0 2px #1e40af; // focus:ring-blue-800
+    }
+
+    &:disabled {
+        background-color: #bfdbfe; // disabled:bg-blue-100
+        border-color: #bfdbfe; // border-blue-100
+    }
+}
+
+.input-filter-date {
+    .p-inputtext {
+        width: 100%; // Asegura que el campo de entrada ocupe el 100% del contenedor
+        height: 2.25rem; // Ajusta la altura del campo de entrada
+        font-size: 0.875rem; // Ajusta el tamaño del texto
+    }
+
+    .p-datepicker-trigger {
+        height: 2.25rem;
+        ; // Ajusta la altura del icono de calendario
+    }
+
+    .p-calendar {
+        width: 100%; // Ajusta el ancho del calendario (si es necesario)
+    }
+}
+
+.input-filter-dropdown {
+    width: 200px; // Ajusta el ancho del dropdown
+  
+    .p-dropdown {
+      width: 100%; // Asegura que el dropdown ocupe el ancho completo del contenedor
+    }
+  
+    .p-dropdown-label {
+      font-size: 0.875rem; // Ajusta el tamaño del texto
+      height: 2.25rem; // Ajusta la altura del dropdown
+      line-height: 2.25rem; // Alinea verticalmente el texto
+      display: flex; // Utiliza flexbox para centrar el texto verticalmente
+      align-items: center; // Centra el texto verticalmente
+    }
+  
+    .p-dropdown-trigger {
+      height: 2.25rem; // Ajusta la altura del botón de flecha
+      display: flex; // Utiliza flexbox para centrar el icono de la flecha
+      align-items: center; // Centra verticalmente el icono de la flecha
+    }
+  
+    .p-dropdown-panel {
+      font-size: 0.875rem; // Ajusta el tamaño del texto de las opciones del dropdown
+    }
+  }
+  
+
+.dropdown-button {
+    .p-button.p-button-icon-only {
+        width: 1em;
+        padding: 0.75rem 0;
+    }
+
+    .p-button {
+
+        color: black;
+        background: transparent;
+        border: none;
+
+        font-size: 1rem;
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+        border-radius: 6px;
+        outline-color: transparent;
+    }
+
+}

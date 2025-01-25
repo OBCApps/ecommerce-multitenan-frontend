@@ -1,1 +1,77 @@
-/* You can add global styles to this file, and also import other style files */
+// ----------- MIS PROPIOS ESTILOS GLOBALES
+@import './my-global-styles.scss';
+
+/* Importación de Tailwind CSS */
+@import "../node_modules/tailwindcss/base.css" layer(tailwindcss);
+@import "../node_modules/tailwindcss/components.css" layer(tailwindcss);
+@import "../node_modules/tailwindcss/utilities.css" layer(tailwindcss);
+
+
+/* Importación de PrimeNG */
+/* @import "primeicons/primeicons.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+ */
+
+body {
+    font-weight: 500;
+    --tw-text-opacity: 1;
+    color: rgb(92 108 117 / var(--tw-text-opacity));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+body, h6 {
+    font-size: .875rem;
+}
+body {
+    line-height: inherit;
+    margin: 0;
+}
+
+.btn {
+    align-items: center;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: .5rem;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-flex
+;
+    font-size: .875rem;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.5;
+    padding: .55rem 1rem;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    vertical-align: middle;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    transition-duration: .15s;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+.navbar .navbar-nav .nav-item .nav-link {
+    background: none;
+    border: 0;
+    color: rgb(33 49 60 / var(--tw-text-opacity));
+    display: block;
+    line-height: 1.8;
+    padding: .5rem;
+    text-decoration: none;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+.navbar {
+    padding: .75rem 1rem;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 100%;
+}
