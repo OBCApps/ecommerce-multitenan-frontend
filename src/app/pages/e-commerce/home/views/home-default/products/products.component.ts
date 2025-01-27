@@ -1,5 +1,8 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { EcommerceService } from '../../../../services/ecommerce.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -12,6 +15,42 @@ export class ProductsComponent {
   viewMode: 'grid' | 'list' = 'grid';
   itemsPerPage = 50;
   sortBy = 'Featured';
+  list_categorias: any[] = [];
+  list_products: any[] = [];
+
+  constructor(
+    private ecommerceService: EcommerceService,
+    private router: Router,
+  ) {
+    //super();
+  }
+
+  ngOnInit() {
+    this.general_loads();
+  }
+
+  general_loads() {
+
+    forkJoin({
+      list_categorias: this.ecommerceService.getCategorias(),
+      list_products: this.ecommerceService.getProducts(),
+
+    }).subscribe({
+      next: (responses) => {
+        this.list_categorias = responses.list_categorias.data;
+        this.list_products = responses.list_products.data;
+
+      },
+      error: (err) => {
+
+      }
+    });
+  }
+
+
+
+
+
 
   categories = [
     'Dairy, Bread & Eggs',
@@ -48,9 +87,7 @@ export class ProductsComponent {
     // Añade más productos aquí
   ];
 
-  ngOnInit() {
-    // Inicializar datos
-  }
+
 
   toggleView(mode: 'grid' | 'list') {
     this.viewMode = mode;
@@ -63,4 +100,5 @@ export class ProductsComponent {
   updateSort(value: string) {
     this.sortBy = value;
   }
+  imagenprueba = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rpaekdV9IJN9XVbuy4cHil67phqb7Y.png'
 }
