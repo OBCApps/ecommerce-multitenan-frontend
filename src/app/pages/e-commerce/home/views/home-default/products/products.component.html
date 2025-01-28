@@ -3,19 +3,29 @@
     <aside class="w-64 border-r bg-white p-6">
         <h2 class="text-xl font-semibold mb-4">Categories</h2>
         <ul class="space-y-2">
-            <li *ngFor="let category of list_categorias" class="hover:bg-gray-100 p-2 rounded cursor-pointer">
-                {{ category.nombre }}
+            @for (item of list_categorias; track $index) {
+            <li (click)="load_subcategorias(item)" class="hover:bg-gray-100 p-2 rounded cursor-pointer">
+                {{ item.nombre }}
             </li>
+            }@empty {
+            <p class="text-xs text-gray-400 text-center">No se encontraron resultados</p>
+            }
+
         </ul>
 
         <div class="mt-8">
-            <h2 class="text-xl font-semibold mb-4">Stores</h2>
+            <h2 class="text-xl font-semibold mb-4">Sub Categorias</h2>
             <div class="space-y-2">
-                <label *ngFor="let store of stores" class="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" [checked]="store.checked"
-                        class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                    <span>{{ store.name }}</span>
+                @for (item of list_subcategorias; track $index) {
+
+                <label class="flex items-center space-x-2 cursor-pointer" (click)="load_products(item)">
+                    <!-- <input type="checkbox" [checked]="item.checked"
+                        class="rounded border-gray-300 text-green-600 focus:ring-green-500"> -->
+                    <span>{{ item.nombre }}</span>
                 </label>
+                }@empty {
+                <p class="text-xs text-gray-400 text-center">No se encontraron resultados</p>
+                }
             </div>
         </div>
     </aside>
@@ -28,7 +38,8 @@
             <!-- Filters -->
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-4">
-                    <span>24 Products found</span>
+                    <span>{{list_products ? list_products.length + ' Productos Encontrados ' : 'Productos no encontrado'
+                        }} </span>
                     <div class="flex gap-2">
                         <button (click)="toggleView('list')" [class.text-green-600]="viewMode === 'list'"
                             class="p-2 hover:bg-gray-100 rounded">
@@ -48,14 +59,12 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <select 
-                        class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500">
+                    <select class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500">
                         <option [value]="50">Show: 50</option>
                         <option [value]="100">Show: 100</option>
                     </select>
 
-                    <select 
-                        class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500">
+                    <select class="rounded-lg border-gray-300 focus:border-green-500 focus:ring-green-500">
                         <option value="Featured">Sort by: Featured</option>
                         <option value="Price">Sort by: Price</option>
                         <option value="Rating">Sort by: Rating</option>
@@ -67,7 +76,8 @@
             <div [class]="viewMode === 'grid' ? 
                       'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4' : 
                       'space-y-4'">
-                <div *ngFor="let product of list_products" class="bg-white border rounded-lg p-4 hover:shadow-lg transition">
+                <div *ngFor="let product of list_products"
+                    class="bg-white border rounded-lg p-4 hover:shadow-lg transition">
                     <!-- Sale/Hot Badge -->
                     <div class="relative">
                         <span *ngIf="product.isOnSale ?? true"
@@ -100,8 +110,8 @@
                                     ${{ product.originalPrice ?? '20.00' }}
                                 </span>
                             </div>
-                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                                Add
+                            <button class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" (click)="buy_product(product)">
+                                Comprar
                             </button>
                         </div>
                     </div>

@@ -2,12 +2,12 @@
     <div class="flex flex-col lg:flex-row gap-8">
         <!-- Imágenes del Producto -->
         <div class="lg:w-1/2">
-            <div class="bg-[#faf6f2] rounded-lg p-4 mb-4">
-                <img [src]="selectedImage" [alt]="product.name" class="w-full h-auto object-contain">
+            <div *ngIf="selectedImage" class="bg-[#faf6f2] rounded-lg p-4 mb-4">
+                <img [src]="selectedImage.url" [alt]="selectedImage.alt" class="w-full h-auto object-contain">
             </div>
             <div class="grid grid-cols-4 gap-2">
-                <div *ngFor="let image of product.images" (click)="setMainImage(image.url)"
-                    [class.border-green-500]="selectedImage === image.url"
+                <div *ngFor="let image of product.fotos" (click)="setMainImage(image)"
+                    [class.border-green-500]="selectedImage.url === image.url"
                     class="bg-[#faf6f2] rounded-lg p-2 cursor-pointer border-2 hover:border-green-500 transition-colors">
                     <img [src]="image.url" [alt]="image.alt" class="w-full h-auto object-contain">
                 </div>
@@ -16,26 +16,26 @@
 
         <!-- Detalles del Producto -->
         <div class="lg:w-1/2">
-            <div class="text-green-500 font-medium mb-2">{{ product.category }}</div>
-            <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ product.name }}</h1>
+            <div class="text-green-500 font-medium mb-2">{{ product.id_categoria }}</div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ product.nombre }}</h1>
 
             <!-- Rating -->
             <div class="flex items-center mb-4">
                 <div class="flex">
                     <span *ngFor="let star of [1,2,3,4,5]" class="text-yellow-400">★</span>
                 </div>
-                <span class="ml-2 text-green-600">({{ product.reviews }} reviews)</span>
+                <span class="ml-2 text-green-600">(99 reviews)</span>
             </div>
 
             <!-- Precio -->
             <div class="flex items-center gap-2 mb-6">
-                <span class="text-2xl font-bold">${{ product.currentPrice }}</span>
-                <span class="text-gray-500 line-through">${{ product.originalPrice }}</span>
-                <span class="text-red-500">{{ product.discount }}% Off</span>
+                <span class="text-2xl font-bold">${{ product.precio }}</span>
+                <!-- <span class="text-gray-500 line-through">${{ 99 }}</span>
+                <span class="text-red-500">{{ 99 }}% Off</span> -->
             </div>
 
             <!-- Selector de Peso -->
-            <div class="mb-6">
+            <!-- <div class="mb-6">
                 <div class="flex gap-2">
                     <button *ngFor="let weight of weights" (click)="selectedWeight = weight.value"
                         [class.bg-green-500]="selectedWeight === weight.value"
@@ -44,7 +44,7 @@
                         {{ weight.label }}
                     </button>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Control de Cantidad -->
             <div class="flex items-center gap-4 mb-6">
@@ -56,7 +56,7 @@
 
                 <button (click)="addToCart()"
                     class="flex-1 bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors">
-                    Add to cart
+                    Solicitar Pedido
                 </button>
 
                 <button class="p-2 border-2 rounded-lg hover:border-green-500 transition-colors">
@@ -72,25 +72,17 @@
             <div class="space-y-4 border-t pt-6">
                 <div class="flex justify-between">
                     <span class="text-gray-600">Product Code:</span>
-                    <span>{{ product.code }}</span>
+                    <span> 111 </span>
                 </div>
                 <div class="flex justify-between">
                     <span class="text-gray-600">Availability:</span>
-                    <span class="text-green-500">{{ product.availability }}</span>
+                    <span class="text-green-500">{{ product.disponibilidad }}</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="text-gray-600">Type:</span>
-                    <span>{{ product.type }}</span>
+                    <span>{{ product.id_linea }}</span>
                 </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-600">Shipping:</span>
-                    <span>
-                        {{ product.shipping }}
-                        <span *ngIf="product.freePickup" class="text-green-500">
-                            (Free pickup today)
-                        </span>
-                    </span>
-                </div>
+
             </div>
 
             <!-- Botón Compartir -->
@@ -123,50 +115,19 @@
     <div class="py-8 px-4">
         <!-- Product Details Tab -->
         <div *ngIf="tabs[0].active" class="space-y-8">
+            @for (item of product.descripcionProducto; track $index) {
+
+
             <section>
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    {{ productDetails.nutritionInfo.title }}
+                    {{ item.titulo }}
                 </h2>
                 <p class="text-gray-600 leading-relaxed">
-                    {{ productDetails.nutritionInfo.content }}
+                    {{ item.descripcion }}
                 </p>
             </section>
+            }
 
-            <section>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    {{ productDetails.storageTips.title }}
-                </h2>
-                <p class="text-gray-600 leading-relaxed">
-                    {{ productDetails.storageTips.content }}
-                </p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    {{ productDetails.unit.title }}
-                </h2>
-                <p class="text-gray-600">
-                    {{ productDetails.unit.content }}
-                </p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    {{ productDetails.seller.title }}
-                </h2>
-                <p class="text-gray-600">
-                    {{ productDetails.seller.content }}
-                </p>
-            </section>
-
-            <section>
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">
-                    {{ productDetails.disclaimer.title }}
-                </h2>
-                <p class="text-gray-600 text-sm">
-                    {{ productDetails.disclaimer.content }}
-                </p>
-            </section>
         </div>
 
         <!-- Information Tab -->

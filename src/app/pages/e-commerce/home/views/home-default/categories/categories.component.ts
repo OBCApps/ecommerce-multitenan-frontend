@@ -7,7 +7,7 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [NgFor, ],
+  imports: [NgFor,],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -28,7 +28,8 @@ export class CategoriesComponent {
   general_loads() {
 
     forkJoin({
-      list_categorias: this.ecommerceService.getCategorias(),
+      list_categorias: this.ecommerceService.getAllCategories({ id_linea: '05025dde-e4b6-49d5-a03c-59600174a21b' }),
+
 
 
     }).subscribe({

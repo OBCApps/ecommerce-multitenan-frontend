@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { EcommerceService } from '../../../../services/ecommerce.service';
 import { Router } from '@angular/router';
+import { FilterProductDto } from '../../../models/FilterProductDto';
+import { AuthorizationService } from '../../../../../shared/global-components/authorization/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -15,78 +17,62 @@ export class ProductsComponent {
   viewMode: 'grid' | 'list' = 'grid';
   itemsPerPage = 50;
   sortBy = 'Featured';
+  filterProduct: FilterProductDto = new FilterProductDto();
   list_categorias: any[] = [];
   list_products: any[] = [];
-
   constructor(
     private ecommerceService: EcommerceService,
     private router: Router,
+    private auth: AuthorizationService,
   ) {
     //super();
   }
 
+
   ngOnInit() {
-    this.general_loads();
+    this.load_categorias();
   }
 
-  general_loads() {
 
-    forkJoin({
-      list_categorias: this.ecommerceService.getCategorias(),
-      list_products: this.ecommerceService.getProducts(),
 
-    }).subscribe({
-      next: (responses) => {
-        this.list_categorias = responses.list_categorias.data;
-        this.list_products = responses.list_products.data;
-
+  load_categorias() {
+    this.ecommerceService.getAllCategories({ id_linea: '05025dde-e4b6-49d5-a03c-59600174a21b' }).subscribe({
+      next: (response) => {
+        this.list_categorias = response.data;
       },
       error: (err) => {
-
+        console.error('Error loading subcategories', err);
       }
     });
   }
 
+  list_subcategorias: any[] = [];
+  load_subcategorias(item: any) {
+    this.filterProduct.id_linea = item.id_linea;
+    this.filterProduct.id_categoria = item.id_categoria;
 
+    this.ecommerceService.getAllSubCategories(item).subscribe({
+      next: (response) => {
+        this.list_subcategorias = response.data;
+      },
+      error: (err) => {
+        console.error('Error loading subcategories', err);
+      }
+    });
+  }
 
+  load_products(item: any) {
+    this.filterProduct.id_subcategoria = item.id_subcategoria;
 
-
-
-  categories = [
-    'Dairy, Bread & Eggs',
-    'Snacks & Munchies',
-    'Fruits & Vegetables',
-    'Cold Drinks & Juices',
-    'Breakfast & Instant Food',
-    'Bakery & Biscuits',
-    'Chicken, Meat & Fish'
-  ];
-
-  stores = [
-    { name: 'E-Grocery', checked: true },
-    { name: 'DealShare', checked: false },
-    { name: 'DMart', checked: false },
-    { name: 'Blinkit', checked: false },
-    { name: 'BigBasket', checked: false },
-    { name: 'StoreFront', checked: false },
-    { name: 'Spencers', checked: false }
-  ];
-
-  products: any[] = [
-    {
-      id: 1,
-      name: "Haldiram's Sev Bhujia",
-      category: 'Snack & Munchies',
-      price: 18,
-      originalPrice: 24,
-      rating: 4.5,
-      reviews: 149,
-      image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rpaekdV9IJN9XVbuy4cHil67phqb7Y.png',
-      isOnSale: true
-    },
-    // Añade más productos aquí
-  ];
-
+    this.ecommerceService.getAllProducts(this.filterProduct).subscribe({
+      next: (response) => {
+        this.list_products = response.data;
+      },
+      error: (err) => {
+        console.error('Error loading subcategories', err);
+      }
+    });
+  }
 
 
   toggleView(mode: 'grid' | 'list') {
@@ -101,4 +87,10 @@ export class ProductsComponent {
     this.sortBy = value;
   }
   imagenprueba = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rpaekdV9IJN9XVbuy4cHil67phqb7Y.png'
+
+  buy_product(item) {
+    this.auth.setTemporalData(item);
+    this.router.navigate(['home/products/info'])
+
+  }
 }

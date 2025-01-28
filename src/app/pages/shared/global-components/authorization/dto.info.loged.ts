@@ -1,0 +1,23 @@
+
+export class DtoInfoLoged {
+    companiaCodigo: string
+    companiaNombre: string
+    companiaDocumentofiscal: string
+    usuario: string
+    clave: string
+    token: string
+    direccionIp: string
+    logo: string
+    flgCambiarClave: string
+    flgClaveDefault: string
+    dobleFactor: string
+    dobleFactorTipo: string
+    transaccionMensajesCadena: string
+
+    idestudiante : number
+    iddocente : number
+    
+    personaNombres : string
+    personaApellidoMaterno : string
+    personaApellidoPaterno : string
+}

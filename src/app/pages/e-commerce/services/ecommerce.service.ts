@@ -12,13 +12,20 @@ export class EcommerceService {
 
     constructor(private http: HttpClient) { }
 
-    getCategorias(): Observable<any> {
-        return this.http.get<any>(this.server + 'sa_categoriamast/all').pipe(
+    getAllCategories(data: any): Observable<any> {
+        return this.http.get<any>(this.server + `getAllCategories/${data.id_linea}`).pipe(
             map((response) => { return response })
         );
     }
-    getProducts(): Observable<any> {
-        return this.http.get<any>(this.server + 'sa_itemmast/all').pipe(
+
+    getAllSubCategories(data: any): Observable<any> {
+        return this.http.get<any>(this.server + `getAllSubCategories/${data.id_categoria}`).pipe(
+            map((response) => { return response })
+        );
+    }
+
+    getAllProducts(data: any): Observable<any> {
+        return this.http.post<any>(this.server + `getAllProducts`, data).pipe(
             map((response) => { return response })
         );
     }

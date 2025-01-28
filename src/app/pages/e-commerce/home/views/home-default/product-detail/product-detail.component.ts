@@ -1,5 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { AuthorizationService } from '../../../../../shared/global-components/authorization/auth.service';
+import { DtoFotoProducto, DtoItemMast } from './models/DtoItem';
 
 @Component({
   selector: 'app-product-detail',
@@ -9,31 +11,11 @@ import { Component } from '@angular/core';
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent {
-  product = {
-    category: 'Bakery Biscuits',
-    name: 'Napolitanke Ljesnjak',
-    rating: 5,
-    reviews: 30,
-    currentPrice: 32,
-    originalPrice: 35,
-    discount: 28,
-    code: 'FBB00255',
-    availability: 'In Stock',
-    type: 'Fruits',
-    shipping: '01 day shipping',
-    freePickup: true,
-    mainImage: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-tdENb6VrzBFjnZegzrG2oX6TGbVDPo.png',
-    images: [
-      { id: 1, url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-tdENb6VrzBFjnZegzrG2oX6TGbVDPo.png', alt: 'Product view 1' },
-      { id: 2, url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-tdENb6VrzBFjnZegzrG2oX6TGbVDPo.png', alt: 'Product view 2' },
-      { id: 3, url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-tdENb6VrzBFjnZegzrG2oX6TGbVDPo.png', alt: 'Product view 3' },
-      { id: 4, url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-tdENb6VrzBFjnZegzrG2oX6TGbVDPo.png', alt: 'Product view 4' },
-    ]
-  };
+  product: DtoItemMast = new DtoItemMast();
 
   selectedWeight = '250g';
   quantity = 1;
-  selectedImage: string;
+  selectedImage: DtoFotoProducto = new DtoFotoProducto();
 
   weights = [
     { value: '250g', label: '250g' },
@@ -41,13 +23,21 @@ export class ProductDetailComponent {
     { value: '1kg', label: '1kg' },
   ];
 
-  constructor() {
-    this.selectedImage = this.product.mainImage;
+  constructor(
+    private auth: AuthorizationService,
+  ) {
+
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
 
-  setMainImage(imageUrl: string): void {
+    this.product = this.auth.getTemporalData();
+    this.selectedImage = this.product.fotos && this.product.fotos.length > 0 && this.product.fotos[0];
+
+
+  }
+
+  setMainImage(imageUrl: any): void {
     this.selectedImage = imageUrl;
   }
 
@@ -62,11 +52,10 @@ export class ProductDetailComponent {
   }
 
   addToCart(): void {
-    console.log('Added to cart:', {
-      product: this.product.name,
-      quantity: this.quantity,
-      weight: this.selectedWeight
-    });
+    const phoneNumber = '926581351'; // Número de WhatsApp (sin el "+" o espacios, formato internacional)
+    const mensaje = `Quiero comprar el siguiente producto:\nCantidad: ${this.quantity}\nNombre del producto: ${this.product.nombre}`;
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
   }
 
   // -------------- INFORMACION DETALLADA DEL PRODUCTO --------------- \\
