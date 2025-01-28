@@ -2,6 +2,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { AuthorizationService } from '../../../../../shared/global-components/authorization/auth.service';
 import { DtoFotoProducto, DtoItemMast } from './models/DtoItem';
+import { BaseComponents } from '../../../../../shared/BaseComponents';
 
 @Component({
   selector: 'app-product-detail',
@@ -10,7 +11,7 @@ import { DtoFotoProducto, DtoItemMast } from './models/DtoItem';
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent extends BaseComponents {
   product: DtoItemMast = new DtoItemMast();
 
   selectedWeight = '250g';
@@ -26,7 +27,7 @@ export class ProductDetailComponent {
   constructor(
     private auth: AuthorizationService,
   ) {
-
+    super();
   }
 
   ngOnInit(): void {

@@ -5,6 +5,7 @@ import { EcommerceService } from '../../../../services/ecommerce.service';
 import { Router } from '@angular/router';
 import { FilterProductDto } from '../../../models/FilterProductDto';
 import { AuthorizationService } from '../../../../../shared/global-components/authorization/auth.service';
+import { BaseComponents } from '../../../../../shared/BaseComponents';
 
 @Component({
   selector: 'app-products',
@@ -13,67 +14,105 @@ import { AuthorizationService } from '../../../../../shared/global-components/au
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
-export class ProductsComponent {
+export class ProductsComponent extends BaseComponents {
   viewMode: 'grid' | 'list' = 'grid';
   itemsPerPage = 50;
   sortBy = 'Featured';
   filterProduct: FilterProductDto = new FilterProductDto();
   list_categorias: any[] = [];
   list_products: any[] = [];
+  bool_loadingproductos: boolean = false;
+  bool_loadingcategories: boolean = false;
+  bool_loadingsubcategories: boolean = false;
   constructor(
     private ecommerceService: EcommerceService,
     private router: Router,
     private auth: AuthorizationService,
   ) {
-    //super();
+    super();
   }
 
 
   ngOnInit() {
     this.load_categorias();
+    this.load_products();
   }
 
 
 
   load_categorias() {
+    this.bool_loadingcategories = true;
+    this.list_categorias = [];
     this.ecommerceService.getAllCategories({ id_linea: '05025dde-e4b6-49d5-a03c-59600174a21b' }).subscribe({
       next: (response) => {
+        this.bool_loadingcategories = false;
         this.list_categorias = response.data;
       },
       error: (err) => {
+        this.bool_loadingcategories = false;
         console.error('Error loading subcategories', err);
       }
     });
   }
 
-  list_subcategorias: any[] = [];
-  load_subcategorias(item: any) {
+  select_categoria(item: any) {
+    this.filterProduct = new FilterProductDto();
     this.filterProduct.id_linea = item.id_linea;
     this.filterProduct.id_categoria = item.id_categoria;
 
-    this.ecommerceService.getAllSubCategories(item).subscribe({
+
+    this.load_products();
+    this.load_subcategorias();
+  }
+
+  select_subcategoria(item: any) {
+    //this.filterProduct.id_categoria = item.id_categoria;
+    this.filterProduct.id_subcategoria = item.id_subcategoria;
+    this.load_products();
+  }
+
+  list_subcategorias: any[] = [];
+  load_subcategorias() {
+    this.bool_loadingsubcategories = true;
+    this.list_subcategorias = [];
+    this.ecommerceService.getAllSubCategories(this.filterProduct).subscribe({
       next: (response) => {
+        this.bool_loadingsubcategories = false;
         this.list_subcategorias = response.data;
       },
       error: (err) => {
+        this.bool_loadingsubcategories = false;
         console.error('Error loading subcategories', err);
       }
     });
   }
 
-  load_products(item: any) {
-    this.filterProduct.id_subcategoria = item.id_subcategoria;
-
+  load_products() {
+    this.bool_loadingproductos = true;
+    this.list_products = [];
     this.ecommerceService.getAllProducts(this.filterProduct).subscribe({
       next: (response) => {
+        this.bool_loadingproductos = false;
         this.list_products = response.data;
       },
       error: (err) => {
+        this.bool_loadingproductos = false;
         console.error('Error loading subcategories', err);
       }
     });
   }
 
+  getTitleCategoria(): any {
+    if (!this.filterProduct.id_categoria && !this.filterProduct.id_subcategoria) {
+      return "Todos los productos"
+    }
+    if (this.filterProduct.id_categoria && !this.filterProduct.id_subcategoria) {
+      return this.list_categorias.find(item => item.id_categoria === this.filterProduct.id_categoria)?.nombre;
+    }
+    if (this.filterProduct.id_categoria && this.filterProduct.id_subcategoria) {
+      return `${this.list_categorias.find(item => item.id_categoria === this.filterProduct.id_categoria)?.nombre} / ${this.list_subcategorias.find(item => item.id_subcategoria === this.filterProduct.id_subcategoria)?.nombre}`;
+    }
+  }
 
   toggleView(mode: 'grid' | 'list') {
     this.viewMode = mode;
@@ -86,7 +125,7 @@ export class ProductsComponent {
   updateSort(value: string) {
     this.sortBy = value;
   }
-  imagenprueba = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-rpaekdV9IJN9XVbuy4cHil67phqb7Y.png'
+  imagenprueba = 'https://img.freepik.com/vector-gratis/dibujado-mano-senal-foto_23-2149278213.jpg?t=st=1738102911~exp=1738106511~hmac=ddd5b1af063d26bc50a809c1ac2e0efce3b636a0527692fd57f0b8fd3197cefb&w=826'
 
   buy_product(item) {
     this.auth.setTemporalData(item);
