@@ -233,9 +233,8 @@
                         </form>
                     </div>
                     <div class="block lg:hidden mb-4">
-                        <a class="btn inline-flex items-center gap-x-2 bg-primary text-white border-primarbg-primary disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 justify-center"
-                            data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                            aria-controls="collapseExample">
+                        <a routerLink="products"
+                            class="btn inline-flex items-center gap-x-2 bg-primary text-white border-primarbg-primary disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 justify-center">
                             <span class="mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid"
                                     width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -251,27 +250,14 @@
                                         d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
                                 </svg>
                             </span>
-                            All Departments
+                            Ver Productos
                         </a>
-                        <div class="hidden  collapse mt-2" id="collapseExample">
-                            <div class="card card-body">
-                                <ul class="list-unstyled">
-                                    <li><a class="dropdown-item" href="./shop-grid.html">Dairy, Bread & Eggs</a></li>
-                                    <li><a class="dropdown-item" href="./shop-grid.html">Snacks & Munchies</a></li>
-                                    <li><a class="dropdown-item" href="./shop-grid.html">Fruits & Vegetables</a></li>
-                                    <li><a class="dropdown-item" href="./shop-grid.html">Cold Drinks & Juices</a></li>
-                                    <li><a class="dropdown-item" href="./shop-grid.html">Breakfast & Instant Food</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="./shop-grid.html">Bakery & Biscuits</a></li>
-                                    <li><a class="dropdown-item" href="./shop-grid.html">Chicken, Meat & Fish</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="dropdown hidden lg:block">
-                        <button
+                        <button routerLink="products"
                             class="mr-4 btn inline-flex items-center gap-x-2 bg-primary text-white border-primarbg-primary disabled:opacity-50 disabled:pointer-events-none hover:text-white hover:bg-green-700 hover:border-green-700 active:bg-green-700 active:border-green-700 focus:outline-none focus:ring-4 focus:ring-green-300"
-                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            type="button" router id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid"
                                     width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -287,22 +273,14 @@
                                         d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
                                 </svg>
                             </span>
-                            All Departments
+                            Ver Productos
                         </button>
-                        <ul class="hidden dropdown-menu">
-                            <li><a class="dropdown-item" href="./shop-grid.html">Dairy, Bread & Eggs</a></li>
-                            <li><a class="dropdown-item" href="./shop-grid.html">Snacks & Munchies</a></li>
-                            <li><a class="dropdown-item" href="./shop-grid.html">Fruits & Vegetables</a></li>
-                            <li><a class="dropdown-item" href="./shop-grid.html">Cold Drinks & Juices</a></li>
-                            <li><a class="dropdown-item" href="./shop-grid.html">Breakfast & Instant Food</a></li>
-                            <li><a class="dropdown-item" href="./shop-grid.html">Bakery & Biscuits</a></li>
-                            <li><a class="dropdown-item" href="./shop-grid.html">Chicken, Meat & Fish</a></li>
-                        </ul>
+                        
                     </div>
                     <div>
                         <ul class="navbar-nav lg:flex gap-3 lg:items-center">
                             <li class="nav-item dropdown w-full lg:w-auto">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                <a  routerLink="/home" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Home</a>
                                 <ul class="hidden dropdown-menu">
                                     <li><a class="dropdown-item" href="./index.html">Home Default</a></li>
@@ -332,7 +310,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown w-full lg:w-auto">
+                            <!-- <li class="nav-item dropdown w-full lg:w-auto">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Shop</a>
                                 <ul class="hidden dropdown-menu">
@@ -454,7 +432,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="./dashboard/index.html">Dashboard</a>
                             </li>
-
                             <li class="nav-item dropdown w-full lg:w-auto dropdown-flyout">
                                 <a class="nav-link" href="#" id="navbarDropdownDocs" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Docs</a>
@@ -502,7 +479,7 @@
                                         </div>
                                     </a>
                                 </div>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
