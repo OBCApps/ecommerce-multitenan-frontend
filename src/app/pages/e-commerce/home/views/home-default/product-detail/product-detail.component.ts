@@ -61,34 +61,13 @@ export class ProductDetailComponent extends BaseComponents {
 
   // -------------- INFORMACION DETALLADA DEL PRODUCTO --------------- \\
   tabs: any[] = [
-    { id: 'details', label: 'Product Details', active: true },
-    { id: 'information', label: 'Information', active: false },
+    { id: 'details', label: 'Detalles del Producto', active: true },
+    /* { id: 'information', label: 'Information', active: false },
     { id: 'reviews', label: 'Reviews', active: false },
-    { id: 'seller', label: 'Seller Info', active: false }
+    { id: 'seller', label: 'Seller Info', active: false } */
   ];
 
-  productDetails = {
-    nutritionInfo: {
-      title: 'Nutrient Value & Benefits',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    storageTips: {
-      title: 'Storage Tips',
-      content: 'Nisi, tellus iaculis urna bibendum in lacus, integer. Id imperdiet vitae varius sed magnis eu nisi nunc sit. Vel, varius habitant ornare ac rhoncus. Consequat risus facilisis ante ipsum netus risus adipiscing sagittis sed.Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-    },
-    unit: {
-      title: 'Unit',
-      content: '3 units'
-    },
-    seller: {
-      title: 'Seller',
-      content: 'DMart Pvt. LTD'
-    },
-    disclaimer: {
-      title: 'Disclaimer',
-      content: 'Image shown is a representation and may slightly vary from the actual product. Every effort is made to maintain accuracy of all information displayed.'
-    }
-  };
+
 
   setActiveTab(selectedTab: any): void {
     this.tabs.forEach(tab => tab.active = tab.id === selectedTab.id);
