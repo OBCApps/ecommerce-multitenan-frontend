@@ -12,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent {
-  list_categorias: any[] = [];
+  list_lineas: any[] = [];
 
   constructor(
     private ecommerceService: EcommerceService,
@@ -28,13 +28,13 @@ export class CategoriesComponent {
   general_loads() {
 
     forkJoin({
-      list_categorias: this.ecommerceService.getAllCategories({ id_linea: '05025dde-e4b6-49d5-a03c-59600174a21b' }),
+      list_lineas: this.ecommerceService.getAllLineas(),
 
 
 
     }).subscribe({
       next: (responses) => {
-        this.list_categorias = responses.list_categorias.data;
+        this.list_lineas = responses.list_lineas.data;
 
 
       },

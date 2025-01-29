@@ -12,6 +12,12 @@ export class EcommerceService {
 
     constructor(private http: HttpClient) { }
 
+    getAllLineas(): Observable<any> {
+        return this.http.get<any>(this.server + `getAllLineas`).pipe(
+            map((response) => { return response })
+        );
+    }
+
     getAllCategories(data: any): Observable<any> {
         return this.http.get<any>(this.server + `getAllCategories/${data.id_linea}`).pipe(
             map((response) => { return response })

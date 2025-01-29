@@ -60,12 +60,22 @@ export class AuthorizationService {
   }
 
 
+  // --------- Sobre la plataforma
   ifPlatform(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       return true;
     } else {
       return false;
     }
+  }
+
+  fetchTenantId(): string {
+    if (this.ifPlatform()) {
+      return window.location.hostname;
+    } else {
+      return ''
+    }
+
   }
 }
 

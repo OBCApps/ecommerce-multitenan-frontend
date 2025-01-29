@@ -5,22 +5,24 @@ import { catchError } from 'rxjs/operators';
 import { AuthorizationService } from './auth.service';
 import { ToastService } from '../../../../../../../../../../ROYAL/BRITANICO/FRONTEND/britanico-portal-frontend/src/app/pages/shared/global-components/toast/toast.service';
 
-
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
-    private storage: AuthorizationService,
-    private toastService: ToastService
+    private authorizationService: AuthorizationService,
+    private toastService: ToastService,
+
   ) { }
 
+
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.storage.getToken();
+    const token = this.authorizationService.getToken();
 
 
     if (!token) {
 
       // -------- Validamos que sea una plataforma valida0'u78
-      if (!this.storage.ifPlatform()) { // Si es desde el terminal
+      if (!this.authorizationService.ifPlatform()) { // Si es desde el terminal
         return EMPTY;
 
       } else { // Si es desde un navegador
@@ -32,8 +34,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
     const request = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`,
+        //Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
+        'X-Tenant-ID': this.authorizationService.fetchTenantId()
       },
     });
 
