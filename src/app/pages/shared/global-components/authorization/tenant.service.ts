@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
+import { server_administration } from '../../../../../environments/environment.prod';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class TenantService {
     constructor(private http: HttpClient, private title: Title) { }
 
     getTenantConfig(): Observable<any> {
-        return this.http.get<any>('http://localhost:3000/administrate/sa_clientemast/tenandId/config').pipe(
+        return this.http.get<any>(`${server_administration}/sa_clientemast/tenandId/config`).pipe(
             tap(config => {
                 this.tenantConfig = config;
             })
@@ -23,7 +24,7 @@ export class TenantService {
     getStoredConfig() {
         return this.tenantConfig;
     }
-    
+
     updateTitle(newTitle: string) {
         this.title.setTitle(newTitle || 'Default Title');
 
