@@ -3,13 +3,12 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthorizationService } from './auth.service';
-import { ToastService } from '../../../../../../../../../../ROYAL/BRITANICO/FRONTEND/britanico-portal-frontend/src/app/pages/shared/global-components/toast/toast.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authorizationService: AuthorizationService,
-    private toastService: ToastService,
+    //private toastService: ToastService,
 
   ) { }
 
@@ -55,17 +54,17 @@ export class AuthInterceptor implements HttpInterceptor {
   private handleHttpError(error: HttpErrorResponse): void {
     switch (error.status) {
       case 0:
-        this.toastService?.addToast({
+        /* this.toastService?.addToast({
           type: 'danger',
           message: 'No se pudo conectar con el servidor. Verifica tu conexión a internet.',
-        });
+        }); */
         break;
       case 401:
       case 403:
-        this.toastService?.addToast({
+        /* this.toastService?.addToast({
           type: 'danger',
           message: 'No tienes permisos para acceder a este recurso.',
-        });
+        }); */
         break;
       /* case 400:
         this.toastService?.addToast({
