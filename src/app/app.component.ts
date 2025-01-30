@@ -21,13 +21,16 @@ export class AppComponent {
   ) {
 
   }
+  
   ngOnInit(): void {
+  
     this.authorizationService.fetchTenantId();
 
     this.tenantService.getTenantConfig().subscribe(response => {
       if (response) {
         this.tenantService.updateFavicon(response.data.favicon); // Cambia el favicon
         this.tenantService.updateTitle(response.data.title);
+        this.tenantService.updateLogo(response.data.logo)
       }
     });
 

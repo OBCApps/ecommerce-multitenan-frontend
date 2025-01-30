@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { server_administration } from '../../../../../environments/environment.prod';
@@ -10,6 +10,7 @@ import { server_administration } from '../../../../../environments/environment.p
 })
 export class TenantService {
     private tenantConfig: any = null;
+    private logoSubject = new BehaviorSubject<string | null>(null);
 
     constructor(private http: HttpClient, private title: Title) { }
 
@@ -29,6 +30,14 @@ export class TenantService {
         this.title.setTitle(newTitle || 'Default Title');
 
     }
+
+    updateLogo(newLogo: string) {
+        //this.tenantConfig.logo = newLogo;
+        this.logoSubject.next(newLogo); // Notificar cambios
+    }
+    getLogo(): Observable<string | null> {
+        return this.logoSubject.asObservable();
+    }
     updateFavicon(iconUrl: string) {
         let link: HTMLLinkElement = document.querySelector("link[rel~='icon']")!;
         if (!link) {
@@ -38,4 +47,6 @@ export class TenantService {
         }
         link.href = iconUrl;
     }
+
+
 }
