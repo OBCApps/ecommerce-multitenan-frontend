@@ -14,7 +14,7 @@ export class TenantService {
     constructor(private http: HttpClient, private title: Title) { }
 
     getTenantConfig(): Observable<any> {
-        return this.http.get<any>(`${server_administration}/sa_clientemast/tenandId/config`).pipe(
+        return this.http.get<any>(`${server_administration}sa_clientemast/tenandId/config`).pipe(
             tap(config => {
                 this.tenantConfig = config;
             })
