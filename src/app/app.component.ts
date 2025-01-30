@@ -26,8 +26,8 @@ export class AppComponent {
 
     this.tenantService.getTenantConfig().subscribe(response => {
       if (response) {
-        this.tenantService.updateFavicon(response.data.config.favicon); // Cambia el favicon
-        this.tenantService.updateTitle(response.data.config.title);
+        this.tenantService.updateFavicon(response.data.favicon); // Cambia el favicon
+        this.tenantService.updateTitle(response.data.title);
       }
     });
 
