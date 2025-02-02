@@ -35,5 +35,9 @@ export class EcommerceService {
             map((response) => { return response })
         );
     }
-
+    getProductByNameRoute(data: any): Observable<any> {
+        return this.http.get<any>(this.server + `getProductByNameRoute/${data.name_route}`).pipe(
+            map((response) => { return response })
+        );
+    }
 }

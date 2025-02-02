@@ -4,6 +4,8 @@ import { DtoFotoProducto, DtoItemMast } from './models/DtoItem';
 import { BaseComponents } from '../../../../../shared/BaseComponents';
 import { ItemTechnologyComponent } from './views/item-technology/item-technology.component';
 import { ItemFaceCareComponent } from "./views/item-face_care/item-face_care.component";
+import { ActivatedRoute } from '@angular/router';
+import { EcommerceService } from '../../../../services/ecommerce.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,7 +16,7 @@ import { ItemFaceCareComponent } from "./views/item-face_care/item-face_care.com
 })
 export class ProductDetailComponent extends BaseComponents {
   product: DtoItemMast = new DtoItemMast();
-
+  bool_finded: boolean = false;
   selectedWeight = '250g';
   quantity = 1;
   selectedImage: DtoFotoProducto = new DtoFotoProducto();
@@ -27,16 +29,32 @@ export class ProductDetailComponent extends BaseComponents {
 
   constructor(
     private auth: AuthorizationService,
+    private route: ActivatedRoute,
+    private ecommerceService: EcommerceService
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      const nameRoute = params['name_route'];
+      this.getProductByNameRoute(nameRoute);
+    });
+  }
+  getProductByNameRoute(nameRoute: string) {
+    this.bool_finded = false;
+    this.ecommerceService.getProductByNameRoute({ name_route: nameRoute }).subscribe({
+      next: (response) => {
+        this.product = response.data;
+        this.selectedImage = this.product.fotos && this.product.fotos.length > 0 ? this.product.fotos[0] : new DtoFotoProducto();
 
-    this.product = this.auth.getTemporalData();
-    this.selectedImage = this.product.fotos && this.product.fotos.length > 0 && this.product.fotos[0];
-
-
+        this.bool_finded = true;
+      },
+      error: (err) => {
+        this.bool_finded = false;
+        console.error('Error loading subcategories', err);
+      }
+    });
   }
 
   setMainImage(imageUrl: any): void {

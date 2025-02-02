@@ -1,7 +1,10 @@
-@if (product.nombre_template == 'TECHNOLOGY') {
-    <app-item-technology [product]="product"></app-item-technology>
+@if (bool_finded) {
+    @if (product.nombre_template == 'TECHNOLOGY') {
+        <app-item-technology [product]="product"></app-item-technology>
+    }
+    
+    @if (product.nombre_template == 'FACE_CARE') {
+        <app-item-face_care [product]="product"></app-item-face_care>
+    }
 }
 
-@if (product.nombre_template == 'FACE_CARE') {
-    <app-item-face_care [product]="product"></app-item-face_care>
-}

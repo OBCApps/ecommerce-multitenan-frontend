@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FilterProductDto } from '../../../models/FilterProductDto';
 import { AuthorizationService } from '../../../../../shared/global-components/authorization/auth.service';
 import { BaseComponents } from '../../../../../shared/BaseComponents';
+import { ConstantEcommerce } from '../../../../ConstantEcommerce';
 
 @Component({
   selector: 'app-products',
@@ -149,8 +150,8 @@ export class ProductsComponent extends BaseComponents {
   imagenprueba = 'https://img.freepik.com/vector-gratis/dibujado-mano-senal-foto_23-2149278213.jpg?t=st=1738102911~exp=1738106511~hmac=ddd5b1af063d26bc50a809c1ac2e0efce3b636a0527692fd57f0b8fd3197cefb&w=826'
 
   buy_product(item) {
-    this.auth.setTemporalData(item);
-    this.router.navigate(['home/products/info'])
+    //this.auth.setTemporalData(item);
+    this.router.navigate([`${ConstantEcommerce.products_info}${item.name_route}`])
 
   }
 }
