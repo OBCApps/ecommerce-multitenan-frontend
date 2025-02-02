@@ -1,19 +1,19 @@
-import { Component } from '@angular/core';
-import { AuthorizationService } from '../../../../../shared/global-components/authorization/auth.service';
-import { DtoFotoProducto, DtoItemMast } from './models/DtoItem';
-import { BaseComponents } from '../../../../../shared/BaseComponents';
-import { ItemTechnologyComponent } from './views/item-technology/item-technology.component';
-import { ItemFaceCareComponent } from "./views/item-face_care/item-face_care.component";
+import { NgFor, NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { BaseComponents } from '../../../../../../../shared/BaseComponents';
+import { DtoFotoProducto, DtoItemMast } from '../../models/DtoItem';
+import { AuthorizationService } from '../../../../../../../shared/global-components/authorization/auth.service';
 
 @Component({
-  selector: 'app-product-detail',
+  selector: 'app-item-face_care',
   standalone: true,
-  imports: [ItemTechnologyComponent, ItemFaceCareComponent],
-  templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.scss'
+  imports: [NgFor, NgIf],
+  templateUrl: './item-face_care.component.html',
+  styleUrl: './item-face_care.component.scss'
 })
-export class ProductDetailComponent extends BaseComponents {
-  product: DtoItemMast = new DtoItemMast();
+export class ItemFaceCareComponent extends BaseComponents {
+  @Input() product: DtoItemMast = new DtoItemMast();
+  ///product: DtoItemMast = new DtoItemMast();
 
   selectedWeight = '250g';
   quantity = 1;
@@ -62,10 +62,11 @@ export class ProductDetailComponent extends BaseComponents {
 
   // -------------- INFORMACION DETALLADA DEL PRODUCTO --------------- \\
   tabs: any[] = [
-    { id: 'details', label: 'Detalles del Producto', active: true },
-    /* { id: 'information', label: 'Information', active: false },
-    { id: 'reviews', label: 'Reviews', active: false },
-    { id: 'seller', label: 'Seller Info', active: false } */
+    { id: 0, label: 'Especificaciones Principales', active: true },
+    { id: 1, label: 'Información Adicional', active: false },
+    { id: 2, label: 'Modo de Uso', active: false },
+    { id: 3, label: 'Beneficios', active: false },
+    
   ];
 
 
