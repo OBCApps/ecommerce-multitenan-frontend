@@ -32,8 +32,8 @@ export class ItemFaceCareComponent extends BaseComponents {
   }
 
   ngOnInit(): void {
-
-    this.product = this.auth.getTemporalData();
+    
+    //this.product = this.auth.getTemporalData();
     this.selectedImage = this.product.fotos && this.product.fotos.length > 0 && this.product.fotos[0];
 
 
