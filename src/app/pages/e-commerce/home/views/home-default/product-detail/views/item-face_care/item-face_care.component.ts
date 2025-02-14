@@ -32,7 +32,7 @@ export class ItemFaceCareComponent extends BaseComponents {
   }
 
   ngOnInit(): void {
-    
+
     //this.product = this.auth.getTemporalData();
     this.selectedImage = this.product.fotos && this.product.fotos.length > 0 && this.product.fotos[0];
 
@@ -66,7 +66,7 @@ export class ItemFaceCareComponent extends BaseComponents {
     { id: 1, label: 'Información Adicional', active: false },
     { id: 2, label: 'Modo de Uso', active: false },
     { id: 3, label: 'Beneficios', active: false },
-    
+
   ];
 
 
@@ -74,5 +74,27 @@ export class ItemFaceCareComponent extends BaseComponents {
   setActiveTab(selectedTab: any): void {
     this.tabs.forEach(tab => tab.active = tab.id === selectedTab.id);
   }
-
+  producta: any = {
+    name: "CeraVe Moisturizing Cream",
+    image: "/placeholder.svg?height=300&width=300",
+    specs: [
+      "Para piel seca a muy seca",
+      "Fórmula no comedogénica",
+      "Con 3 ceramidas esenciales",
+      "Liberación prolongada hasta 24 horas",
+    ],
+    usage: [
+      "Aplicar generosamente según sea necesario",
+      "Ideal para uso diario en cara y cuerpo",
+      "Puede usarse de día y de noche",
+    ],
+    benefits: [
+      "Hidratación intensa y duradera",
+      "Restaura la barrera protectora de la piel",
+      "Textura no grasa",
+      "Apto para pieles sensibles",
+    ],
+    additionalInfo:
+      "Desarrollado con dermatólogos, este producto contiene ácido hialurónico y ceramidas que ayudan a retener la humedad natural de la piel. Su tecnología MVE permite una liberación controlada de ingredientes, proporcionando hidratación durante todo el día.",
+  }
 }
